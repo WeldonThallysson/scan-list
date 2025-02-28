@@ -28,8 +28,8 @@ export class BarcodeController {
     return this.barcodeService.findDetails(id);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() item: IParamsBarcode): Promise<IResponseApi> {
+  @Put()
+  async update(@Body() item: IParamsBarcode): Promise<IResponseApi> {
     const data = {
       id: item.id,
       code: item.code,

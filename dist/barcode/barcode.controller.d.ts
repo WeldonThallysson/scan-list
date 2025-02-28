@@ -8,6 +8,6 @@ export declare class BarcodeController {
     create(item: Barcode): Promise<IResponseApi>;
     findAll(code?: string, description?: string): Promise<Barcode[]>;
     findDetails(id: number): Promise<Barcode | null>;
-    update(id: number, item: IParamsBarcode): Promise<IResponseApi>;
+    update(item: IParamsBarcode): Promise<IResponseApi>;
     delete(id: number): Promise<IResponseApi>;
 }

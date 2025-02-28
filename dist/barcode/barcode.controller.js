@@ -31,7 +31,7 @@ let BarcodeController = class BarcodeController {
     async findDetails(id) {
         return this.barcodeService.findDetails(id);
     }
-    async update(id, item) {
+    async update(item) {
         const data = {
             id: item.id,
             code: item.code,
@@ -68,11 +68,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BarcodeController.prototype, "findDetails", null);
 __decorate([
-    (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Put)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], BarcodeController.prototype, "update", null);
 __decorate([

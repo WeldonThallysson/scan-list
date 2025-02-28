@@ -27,7 +27,6 @@ let BarcodeService = class BarcodeService {
     }
     async create(item) {
         const { code, userId } = item;
-        console.log(code);
         const barcodeExists = await this.barcodeModel.findOne({
             where: {
                 code: code
@@ -37,16 +36,15 @@ let BarcodeService = class BarcodeService {
         if (barcodeExists?.dataValues.code) {
             throw new common_1.BadRequestException("Esse código de barras já foi cadastrado, tente outro código!");
         }
-        if (code) {
+        if (!code) {
             throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
-        if (userId) {
+        if (!userId) {
             throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
         await this.barcodeModel.create({
             code: item.code,
             userId,
-            description: null,
             scannedDate: dataCurrent,
             scannedAt: new Date()
         });
@@ -74,14 +72,13 @@ let BarcodeService = class BarcodeService {
     async update(item) {
         const { id, code, userId, description } = item;
         const barcodeExists = await this.barcodeModel.findByPk(id);
-        const dataCurrent = (0, date_fns_1.format)((0, date_fns_tz_1.toZonedTime)(new Date(), fusoHorarioBrasilia), 'yyyy-MM-dd HH:mm');
         if (!barcodeExists) {
             throw new common_1.BadRequestException("Não foi possível prosseguir, esse código de barras não foi cadastrado.");
         }
-        if (code) {
+        if (!code) {
             throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
-        if (userId) {
+        if (!userId) {
             throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
         await barcodeExists.update({
