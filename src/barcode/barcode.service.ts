@@ -21,6 +21,7 @@ export class BarcodeService {
 
         const barcodeExists = await this.barcodeModel.findOne({
             where: {
+                userId: userId,
                 code: code
             }
         })
