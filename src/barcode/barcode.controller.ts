@@ -1,18 +1,29 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards, Request, Req } from '@nestjs/common';
 import { BarcodeService } from './barcode.service';
 import { Barcode } from './barcode.model';
 import { IResponseApi } from 'src/interfaces/interface.response.message';
-import { IParamsBarcode } from 'src/interfaces/interface.barcode';
+import { IParamsBarcode, IParamsRegister } from 'src/interfaces/interface.barcode';
 import { JwtAuthGuard } from 'src/guard/jwt.guard';
 
+interface IRequest { 
+  user: {
+    id: number,
+     email: string
+  }
+}
 @UseGuards(JwtAuthGuard)
 @Controller('barcodes')
+
 export class BarcodeController {
   constructor(private readonly barcodeService: BarcodeService) {}
 
   @Post()
-  async create(@Body() item: Barcode): Promise<IResponseApi> {
-    return this.barcodeService.create(item);
+  async create(@Request() req: IRequest, @Body() item: IParamsRegister): Promise<IResponseApi> {
+    const data = {
+      ...item,
+      userId: req.user.id
+    }
+    return this.barcodeService.create(data);
   }
 
   @Get()
@@ -29,11 +40,12 @@ export class BarcodeController {
   }
 
   @Put()
-  async update(@Body() item: IParamsBarcode): Promise<IResponseApi> {
+  async update(@Request() req: IRequest,  @Body() item: IParamsBarcode): Promise<IResponseApi> {
+    
     const data = {
       id: item.id,
       code: item.code,
-      userId: item.userId,
+      userId: req.user.id,
       description: item.description
     }
     return this.barcodeService.update(data);

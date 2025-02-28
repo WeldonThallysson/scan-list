@@ -15,15 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BarcodeController = void 0;
 const common_1 = require("@nestjs/common");
 const barcode_service_1 = require("./barcode.service");
-const barcode_model_1 = require("./barcode.model");
 const jwt_guard_1 = require("../guard/jwt.guard");
 let BarcodeController = class BarcodeController {
     barcodeService;
     constructor(barcodeService) {
         this.barcodeService = barcodeService;
     }
-    async create(item) {
-        return this.barcodeService.create(item);
+    async create(req, item) {
+        const data = {
+            ...item,
+            userId: req.user.id
+        };
+        return this.barcodeService.create(data);
     }
     async findAll(code, description) {
         return this.barcodeService.findAll({ code, description });
@@ -31,11 +34,11 @@ let BarcodeController = class BarcodeController {
     async findDetails(id) {
         return this.barcodeService.findDetails(id);
     }
-    async update(item) {
+    async update(req, item) {
         const data = {
             id: item.id,
             code: item.code,
-            userId: item.userId,
+            userId: req.user.id,
             description: item.description
         };
         return this.barcodeService.update(data);
@@ -47,9 +50,10 @@ let BarcodeController = class BarcodeController {
 exports.BarcodeController = BarcodeController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [barcode_model_1.Barcode]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], BarcodeController.prototype, "create", null);
 __decorate([
@@ -69,9 +73,10 @@ __decorate([
 ], BarcodeController.prototype, "findDetails", null);
 __decorate([
     (0, common_1.Put)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], BarcodeController.prototype, "update", null);
 __decorate([

@@ -40,7 +40,7 @@ let BarcodeService = class BarcodeService {
             throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
         if (!userId) {
-            throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
+            throw new common_1.BadRequestException('Informe o id do usuário responsável');
         }
         await this.barcodeModel.create({
             code: item.code,
@@ -79,7 +79,7 @@ let BarcodeService = class BarcodeService {
             throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
         if (!userId) {
-            throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
+            throw new common_1.BadRequestException('Informe o id do usuário responsável');
         }
         await barcodeExists.update({
             ...(code && { code }),

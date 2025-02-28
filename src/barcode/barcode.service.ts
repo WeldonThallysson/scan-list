@@ -5,7 +5,7 @@ import { IResponseApi } from 'src/interfaces/interface.response.message';
 import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
-import { IParamsBarcode } from 'src/interfaces/interface.barcode';
+import { IParamsBarcode, IParamsRegister } from 'src/interfaces/interface.barcode';
  
 const fusoHorarioBrasilia = 'America/Sao_Paulo'; 
 
@@ -13,7 +13,7 @@ const fusoHorarioBrasilia = 'America/Sao_Paulo';
 export class BarcodeService {
     constructor(@InjectModel(Barcode) private barcodeModel: typeof Barcode){}
 
-    async create(item: Barcode): Promise<IResponseApi>{
+    async create(item: IParamsRegister): Promise<IResponseApi>{
         const {
             code,
             userId
@@ -35,7 +35,7 @@ export class BarcodeService {
             throw new BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
         if(!userId){
-            throw new BadRequestException('Realize a leitura de um código de barras para cadastrar')
+            throw new BadRequestException('Informe o id do usuário responsável')
         }
         
 
@@ -92,7 +92,7 @@ export class BarcodeService {
             throw new BadRequestException('Realize a leitura de um código de barras para cadastrar');
         }
         if(!userId){
-            throw new BadRequestException('Realize a leitura de um código de barras para cadastrar')
+            throw new BadRequestException('Informe o id do usuário responsável')
         }
 
         await barcodeExists.update({
