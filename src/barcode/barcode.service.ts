@@ -1,9 +1,9 @@
-import { BadRequestException, Injectable, UseGuards } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Barcode } from './barcode.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { IResponseApi } from 'src/interfaces/interface.response.message';
 import { format } from 'date-fns';
-import {  toZonedTime } from 'date-fns-tz';
+import { toZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
 import { IParamsBarcode } from 'src/interfaces/interface.barcode';
  

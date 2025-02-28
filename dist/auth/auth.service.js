@@ -8,25 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const sequelize_1 = require("@nestjs/sequelize");
-const users_model_1 = require("../users/users.model");
 const bcrypt = require("bcrypt");
+const users_service_1 = require("../users/users.service");
 let AuthService = class AuthService {
-    usersModel;
+    usersService;
     jwtService;
-    constructor(usersModel, jwtService) {
-        this.usersModel = usersModel;
+    constructor(usersService, jwtService) {
+        this.usersService = usersService;
         this.jwtService = jwtService;
     }
     async validateUser(email, password) {
-        const user = await this.usersModel.findOne({ where: { email } });
+        const user = await this.usersService.findByEmail(email);
         if (user && (await bcrypt.compare(password, user.password))) {
             const { password, ...result } = user.get({ plain: true });
             return result;
@@ -47,7 +43,7 @@ let AuthService = class AuthService {
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, sequelize_1.InjectModel)(users_model_1.Users)),
-    __metadata("design:paramtypes", [Object, jwt_1.JwtService])
+    __metadata("design:paramtypes", [users_service_1.UsersService,
+        jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

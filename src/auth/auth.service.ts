@@ -1,18 +1,17 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectModel } from '@nestjs/sequelize';
-import { Users } from 'src/users/users.model';
 import * as bcrypt from 'bcrypt';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectModel(Users) private usersModel: typeof Users,
+ constructor(
+    private usersService: UsersService, 
     private jwtService: JwtService
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersModel.findOne({ where: { email } });
+    const user = await this.usersService.findByEmail(email);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const { password, ...result } = user.get({ plain: true });

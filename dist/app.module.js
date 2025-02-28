@@ -31,18 +31,12 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: true,
                 models: [users_model_1.Users, barcode_model_1.Barcode],
             }),
-            barcode_model_1.Barcode,
-            users_model_1.Users,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
-            barcode_module_1.BarcodeModule
+            barcode_module_1.BarcodeModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
-        exports: [
-            barcode_model_1.Barcode,
-            users_model_1.Users,
-        ]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

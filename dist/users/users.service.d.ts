@@ -6,6 +6,7 @@ export declare class UsersService {
     constructor(usersModel: typeof Users);
     findAll(): Promise<Users[]>;
     findOne(id: number): Promise<Users | null>;
+    findByEmail(email: string): Promise<Users | null>;
     create(item: IUsersAttributes): Promise<IResponseApi>;
     update(item: IUsersAttributes): Promise<IResponseApi>;
     remove(id: number): Promise<IResponseApi>;

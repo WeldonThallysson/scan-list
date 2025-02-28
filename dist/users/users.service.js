@@ -29,6 +29,9 @@ let UsersService = class UsersService {
     async findOne(id) {
         return this.usersModel.findByPk(id);
     }
+    async findByEmail(email) {
+        return this.usersModel.findOne({ where: { email: email } });
+    }
     async create(item) {
         if ((!item.email || !item.password || !item.name)) {
             throw new common_1.BadRequestException('Preencha os campos obrigatórios nome, e-mail e senha.');

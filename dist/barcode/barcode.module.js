@@ -8,17 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BarcodeModule = void 0;
 const common_1 = require("@nestjs/common");
-const sequelize_1 = require("@nestjs/sequelize");
-const barcode_model_1 = require("../barcode/barcode.model");
-const users_model_1 = require("../users/users.model");
 const barcode_service_1 = require("./barcode.service");
 const barcode_controller_1 = require("./barcode.controller");
+const sequelize_1 = require("@nestjs/sequelize");
+const barcode_model_1 = require("./barcode.model");
+const users_model_1 = require("../users/users.model");
 let BarcodeModule = class BarcodeModule {
 };
 exports.BarcodeModule = BarcodeModule;
 exports.BarcodeModule = BarcodeModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([barcode_model_1.Barcode, users_model_1.Users])],
+        imports: [
+            sequelize_1.SequelizeModule.forFeature([barcode_model_1.Barcode, users_model_1.Users])
+        ],
         controllers: [barcode_controller_1.BarcodeController],
         providers: [barcode_service_1.BarcodeService],
     })

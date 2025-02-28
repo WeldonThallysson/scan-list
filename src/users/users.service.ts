@@ -8,9 +8,7 @@ import { IResponseApi } from 'src/interfaces/interface.response.message';
  
 @Injectable()
 export class UsersService {
-   constructor(
-    @InjectModel(Users) private usersModel: typeof Users,
-   ){}
+   constructor(@InjectModel(Users) private usersModel: typeof Users){}
 
    async findAll(): Promise<Users[]> {
     return this.usersModel.findAll()
@@ -20,6 +18,9 @@ export class UsersService {
     return this.usersModel.findByPk(id)
    }
 
+   async findByEmail(email: string): Promise<Users | null> {
+    return this.usersModel.findOne({where:{email: email}})
+   }
    async create(item: IUsersAttributes): Promise<IResponseApi>{
        if((!item.email || !item.password || !item.name)){
         throw new BadRequestException('Preencha os campos obrigatórios nome, e-mail e senha.');
