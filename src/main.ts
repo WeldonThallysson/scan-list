@@ -2,10 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { VercelRequest, VercelResponse } from '@vercel/node';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express'
 
 dotenv.config();
+const server = express();
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  await app.init();
 
   app.enableCors()
   await app.listen(process.env.PORT ?? 3000);
