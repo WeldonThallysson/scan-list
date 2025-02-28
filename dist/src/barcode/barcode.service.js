@@ -53,7 +53,9 @@ let BarcodeService = class BarcodeService {
         };
     }
     async findAll(filters) {
-        const where = {};
+        const where = {
+            userId: filters.userId,
+        };
         if (filters.description) {
             where.description = { [sequelize_2.Op.like]: `%${filters.description}%` };
         }

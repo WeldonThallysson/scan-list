@@ -51,8 +51,11 @@ export class BarcodeService {
         }
     }
 
-    async findAll(filters: {code?:string | null, description?: string | null}){
-        const where: any = {};
+    async findAll(filters: {userId: number, code?:string | null, description?: string | null}){
+        const where: any = {
+            userId: filters.userId, 
+        };
+    
 
         if(filters.description){
             where.description = {[Op.like]: `%${filters.description}%`}

@@ -6,6 +6,7 @@ export declare class BarcodeService {
     constructor(barcodeModel: typeof Barcode);
     create(item: IParamsRegister): Promise<IResponseApi>;
     findAll(filters: {
+        userId: number;
         code?: string | null;
         description?: string | null;
     }): Promise<Barcode[]>;

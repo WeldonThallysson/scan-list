@@ -12,7 +12,7 @@ export declare class BarcodeController {
     private readonly barcodeService;
     constructor(barcodeService: BarcodeService);
     create(req: IRequest, item: IParamsRegister): Promise<IResponseApi>;
-    findAll(code?: string, description?: string): Promise<Barcode[]>;
+    findAll(req: IRequest, code?: string, description?: string): Promise<Barcode[]>;
     findDetails(id: number): Promise<Barcode | null>;
     update(req: IRequest, item: IParamsBarcode): Promise<IResponseApi>;
     delete(id: number): Promise<IResponseApi>;

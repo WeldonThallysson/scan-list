@@ -28,10 +28,12 @@ export class BarcodeController {
 
   @Get()
   async findAll(
+    @Request() req: IRequest,
     @Query('code') code?: string,
     @Query('description') description?: string
   ) {
-    return this.barcodeService.findAll({ code, description });
+
+    return this.barcodeService.findAll({userId: req.user.id, code, description });
   }
 
   @Get(':id')

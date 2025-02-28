@@ -28,8 +28,8 @@ let BarcodeController = class BarcodeController {
         };
         return this.barcodeService.create(data);
     }
-    async findAll(code, description) {
-        return this.barcodeService.findAll({ code, description });
+    async findAll(req, code, description) {
+        return this.barcodeService.findAll({ userId: req.user.id, code, description });
     }
     async findDetails(id) {
         return this.barcodeService.findDetails(id);
@@ -58,10 +58,11 @@ __decorate([
 ], BarcodeController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('code')),
-    __param(1, (0, common_1.Query)('description')),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Query)('code')),
+    __param(2, (0, common_1.Query)('description')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", Promise)
 ], BarcodeController.prototype, "findAll", null);
 __decorate([
