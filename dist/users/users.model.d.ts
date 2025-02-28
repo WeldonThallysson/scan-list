@@ -1,6 +1,7 @@
 import { Model } from 'sequelize-typescript';
 import { Barcode } from 'src/barcode/barcode.model';
-export declare class Users extends Model<Users> {
+import { IUsersAttributes } from 'src/interfaces/interface.users';
+export declare class Users extends Model<Users, IUsersAttributes> {
     id: number;
     name: string;
     email: string;

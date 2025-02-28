@@ -3,7 +3,7 @@ import { Users } from './users.model';
 import { IResponseApi } from 'src/interfaces/interface.response.message';
 import { IUsersAttributes } from 'src/interfaces/interface.users';
 import { UsersService } from './users.service';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { JwtAuthGuard } from 'src/guard/jwt.guard';
 
 @Controller('users')
 export class UsersController {

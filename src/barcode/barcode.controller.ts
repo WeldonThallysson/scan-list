@@ -2,8 +2,8 @@ import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards } fro
 import { BarcodeService } from './barcode.service';
 import { Barcode } from './barcode.model';
 import { IResponseApi } from 'src/interfaces/interface.response.message';
-import {  IParamsBarcode } from 'src/interfaces/interface.barcode';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { IParamsBarcode } from 'src/interfaces/interface.barcode';
+import { JwtAuthGuard } from 'src/guard/jwt.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('barcodes')

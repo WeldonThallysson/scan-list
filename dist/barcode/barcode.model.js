@@ -15,6 +15,8 @@ const users_model_1 = require("../users/users.model");
 let Barcode = class Barcode extends sequelize_typescript_1.Model {
     id = 0;
     code;
+    description;
+    scannedDate;
     scannedAt;
     userId;
     user;
@@ -28,6 +30,14 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ allowNull: false, type: sequelize_typescript_1.DataType.STRING }),
     __metadata("design:type", String)
 ], Barcode.prototype, "code", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ allowNull: true, type: sequelize_typescript_1.DataType.STRING }),
+    __metadata("design:type", Object)
+], Barcode.prototype, "description", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ allowNull: false, type: sequelize_typescript_1.DataType.STRING }),
+    __metadata("design:type", String)
+], Barcode.prototype, "scannedDate", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ allowNull: false, type: sequelize_typescript_1.DataType.DATE }),
     __metadata("design:type", Date)

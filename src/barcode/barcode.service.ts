@@ -2,15 +2,12 @@ import { BadRequestException, Injectable, UseGuards } from '@nestjs/common';
 import { Barcode } from './barcode.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { IResponseApi } from 'src/interfaces/interface.response.message';
-import { parse, format } from 'date-fns';
+import { format } from 'date-fns';
 import {  toZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
-import { retry } from 'rxjs';
-import { IBarcodeAttributes, IParamsBarcode } from 'src/interfaces/interface.barcode';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
-
+import { IParamsBarcode } from 'src/interfaces/interface.barcode';
+ 
 const fusoHorarioBrasilia = 'America/Sao_Paulo'; 
-
 
 @Injectable()
 export class BarcodeService {
