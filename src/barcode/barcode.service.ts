@@ -55,8 +55,9 @@ export class BarcodeService {
         const where: any = {};
 
         if(filters.description){
-            where.description = {[Op.like]: `%${filters.description}`}
+            where.description = {[Op.like]: `%${filters.description}%`}
         }
+
         if(filters.code){
             where.code = {[Op.like]: `%${filters.code}%`};
         }

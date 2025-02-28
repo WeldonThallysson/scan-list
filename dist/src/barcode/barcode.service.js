@@ -55,7 +55,7 @@ let BarcodeService = class BarcodeService {
     async findAll(filters) {
         const where = {};
         if (filters.description) {
-            where.description = { [sequelize_2.Op.like]: `%${filters.description}` };
+            where.description = { [sequelize_2.Op.like]: `%${filters.description}%` };
         }
         if (filters.code) {
             where.code = { [sequelize_2.Op.like]: `%${filters.code}%` };
