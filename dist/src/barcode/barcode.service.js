@@ -63,7 +63,7 @@ let BarcodeService = class BarcodeService {
         const result = await this.barcodeModel.findAll({
             where
         });
-        return result;
+        return result.length > 0 ? result : [];
     }
     async findDetails(id) {
         const result = await this.barcodeModel.findByPk(id);

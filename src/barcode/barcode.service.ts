@@ -65,7 +65,7 @@ export class BarcodeService {
             where
         })
         
-       return result;
+        return result.length > 0 ? result : [];
     }
 
     async findDetails(id: number) {
