@@ -10,6 +10,7 @@ async function bootstrap() {
   app.enableCors()
   await app.listen(process.env.PORT ?? 3000);
 }
+
 bootstrap();
 
 export default async function handler(req: VercelRequest, res:VercelResponse) {
