@@ -75,9 +75,6 @@ let BarcodeService = class BarcodeService {
         if (!barcodeExists) {
             throw new common_1.BadRequestException("Não foi possível prosseguir, esse código de barras não foi cadastrado.");
         }
-        if (!code) {
-            throw new common_1.BadRequestException('Realize a leitura de um código de barras para cadastrar');
-        }
         if (!userId) {
             throw new common_1.BadRequestException('Informe o id do usuário responsável');
         }

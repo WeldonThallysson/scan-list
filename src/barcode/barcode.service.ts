@@ -88,9 +88,6 @@ export class BarcodeService {
              throw new BadRequestException("Não foi possível prosseguir, esse código de barras não foi cadastrado.")   
         }     
 
-        if(!code){
-            throw new BadRequestException('Realize a leitura de um código de barras para cadastrar');
-        }
         if(!userId){
             throw new BadRequestException('Informe o id do usuário responsável')
         }
