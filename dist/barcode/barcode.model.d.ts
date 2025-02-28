@@ -4,7 +4,7 @@ import { IBarcodeAttributes } from 'src/interfaces/interface.barcode';
 export declare class Barcode extends Model<Barcode, IBarcodeAttributes> {
     id: number;
     code: string;
-    description?: string | null;
+    description?: string;
     scannedDate: string;
     scannedAt: Date;
     userId: number;

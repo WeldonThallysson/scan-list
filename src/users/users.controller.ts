@@ -26,14 +26,11 @@ export class UsersController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put(":id")
-    async update(@Param('id') id: number, @Body() item: IUsersAttributes ): Promise<IResponseApi> {
-         const data = {
-            id,
-            ...item
-         }
-        return this.usersService.update(data)
+    @Put()
+    async update(@Body() item: IUsersAttributes ): Promise<IResponseApi> {
+        return this.usersService.update(item)
     }
+
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async remove(@Param('id') id: number): Promise<IResponseApi> {

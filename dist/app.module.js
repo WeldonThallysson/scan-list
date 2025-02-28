@@ -26,7 +26,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot(),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
-                uri: "postgresql://neondb_owner:npg_HAKtmVSE1u7Q@ep-summer-tooth-a8djilu9-pooler.eastus2.azure.neon.tech/neondb?sslmode=require",
+                uri: "postgresql://neondb_owner:npg_GlRk6aNmV9rz@ep-crimson-morning-a8vodkqc-pooler.eastus2.azure.neon.tech/neondb?sslmode=require",
                 autoLoadModels: true,
                 synchronize: true,
                 models: [users_model_1.Users, barcode_model_1.Barcode],

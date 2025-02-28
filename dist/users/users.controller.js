@@ -31,12 +31,8 @@ let UsersController = class UsersController {
     async findOne(id) {
         return this.usersService.findOne(id);
     }
-    async update(id, item) {
-        const data = {
-            id,
-            ...item
-        };
-        return this.usersService.update(data);
+    async update(item) {
+        return this.usersService.update(item);
     }
     async remove(id) {
         return this.usersService.remove(id);
@@ -67,11 +63,10 @@ __decorate([
 ], UsersController.prototype, "findOne", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
-    (0, common_1.Put)(":id"),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Put)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "update", null);
 __decorate([

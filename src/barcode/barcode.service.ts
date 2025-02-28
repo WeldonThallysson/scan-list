@@ -19,14 +19,17 @@ export class BarcodeService {
             userId
         } = item
 
+        console.log(code)
+
         const barcodeExists = await this.barcodeModel.findOne({
             where: {
                 code: code
             }
         })
+
         const dataCurrent = format(toZonedTime(new Date(), fusoHorarioBrasilia), 'yyyy-MM-dd HH:mm');
         
-        if(barcodeExists?.code){
+        if(barcodeExists?.dataValues.code){
             throw new BadRequestException("Esse código de barras já foi cadastrado, tente outro código!") 
         }
         if(code){
@@ -36,9 +39,11 @@ export class BarcodeService {
             throw new BadRequestException('Realize a leitura de um código de barras para cadastrar')
         }
         
+
         await this.barcodeModel.create({
             code: item.code,
             userId,
+            description: null,
             scannedDate: dataCurrent,
             scannedAt: new Date()
           });

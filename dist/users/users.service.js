@@ -30,38 +30,51 @@ let UsersService = class UsersService {
         return this.usersModel.findByPk(id);
     }
     async findByEmail(email) {
-        return this.usersModel.findOne({ where: { email: email } });
+        const user = await this.usersModel.findOne({ where: { email } });
+        if (!user) {
+            return null;
+        }
+        return user?.dataValues;
     }
     async create(item) {
-        if ((!item.email || !item.password || !item.name)) {
+        if (!item.email || !item.password || !item.name) {
             throw new common_1.BadRequestException('Preencha os campos obrigatórios nome, e-mail e senha.');
         }
+        const userExists = await this.usersModel.findOne({
+            where: { email: item.email },
+        });
         if (!validations_utils_1.ValidationUtils.isValidEmail(item.email)) {
             throw new common_1.BadRequestException('Email inválido');
         }
         if (!validations_utils_1.ValidationUtils.isValidPassword(item.password)) {
             throw new common_1.BadRequestException('Senha deve ter pelo menos 8 caracteres.');
         }
+        if (userExists?.dataValues.email) {
+            throw new common_1.BadRequestException('Esse usuário existe foi cadastrado');
+        }
         const hashedPassword = await bcrypt.hash(item.password, 10);
         await this.usersModel.create({
             name: item.name,
             email: item.email,
-            password: hashedPassword
+            password: hashedPassword,
         });
         return {
-            message: "Cadastro realizado com sucesso"
+            message: 'Cadastro realizado com sucesso',
         };
     }
     async update(item) {
-        if (item.id) {
-            throw new common_1.BadRequestException("Não");
+        if (!item.id) {
+            throw new common_1.BadRequestException('Não foi possível prosseguir, envie o id do usuário para realizar a atualização');
         }
-        const user = item.id && await this.findOne(item.id);
+        const user = item.id && (await this.findOne(item.id));
         if (!validations_utils_1.ValidationUtils.isValidEmail(item.email)) {
             throw new common_1.BadRequestException('Email inválido');
         }
         if (!validations_utils_1.ValidationUtils.isValidPassword(item.password)) {
             throw new common_1.BadRequestException('Senha deve ter pelo menos 8 caracteres');
+        }
+        if (!user) {
+            throw new common_1.BadRequestException('Não foi possível prosseguir, o usuário não existe');
         }
         if (user) {
             user.name = item.name;
@@ -72,7 +85,7 @@ let UsersService = class UsersService {
             await user.save();
         }
         return {
-            message: 'Usuário atualizado com sucesso'
+            message: 'Usuário atualizado com sucesso',
         };
     }
     async remove(id) {
@@ -81,7 +94,7 @@ let UsersService = class UsersService {
             await user.destroy();
         }
         return {
-            message: "Usuário deletado com sucesso"
+            message: 'Usuário deletado com sucesso',
         };
     }
 };

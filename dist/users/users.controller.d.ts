@@ -8,6 +8,6 @@ export declare class UsersController {
     create(item: Users): Promise<IResponseApi>;
     findAll(): Promise<Users[]>;
     findOne(id: number): Promise<Users | null>;
-    update(id: number, item: IUsersAttributes): Promise<IResponseApi>;
+    update(item: IUsersAttributes): Promise<IResponseApi>;
     remove(id: number): Promise<IResponseApi>;
 }

@@ -24,7 +24,7 @@ let AuthService = class AuthService {
     async validateUser(email, password) {
         const user = await this.usersService.findByEmail(email);
         if (user && (await bcrypt.compare(password, user.password))) {
-            const { password, ...result } = user.get({ plain: true });
+            const { password, ...result } = user;
             return result;
         }
         else {

@@ -10,8 +10,8 @@ export class Barcode extends Model<Barcode, IBarcodeAttributes> {
   @Column({ allowNull: false, type: DataType.STRING })
   code!: string;
 
-  @Column({allowNull: true, type: DataType.STRING })
-  description?: string | null
+  @Column({ allowNull: true }) 
+  description?: string;
 
   @Column({ allowNull: false, type: DataType.STRING })
   scannedDate: string 

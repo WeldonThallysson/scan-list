@@ -31,8 +31,8 @@ __decorate([
     __metadata("design:type", String)
 ], Barcode.prototype, "code", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: true, type: sequelize_typescript_1.DataType.STRING }),
-    __metadata("design:type", Object)
+    (0, sequelize_typescript_1.Column)({ allowNull: true }),
+    __metadata("design:type", String)
 ], Barcode.prototype, "description", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ allowNull: false, type: sequelize_typescript_1.DataType.STRING }),
