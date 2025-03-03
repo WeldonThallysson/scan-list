@@ -1,17 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = handler;
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
-let cachedApp = null;
-async function createNestApp() {
+const dotenv = require("dotenv");
+dotenv.config();
+async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
-    await app.init();
-    return cachedApp;
+    app.enableCors({
+        methods: 'GET,POST,PUT,DELETE',
+        allowedHeaders: 'Content-Type, Authorization',
+    });
+    await app.listen(process.env.PORT ?? 3000);
 }
-async function handler(req, res) {
-    const app = await createNestApp();
-    app.getHttpAdapter().getInstance()(req, res);
-}
+bootstrap();
 //# sourceMappingURL=main.js.map
