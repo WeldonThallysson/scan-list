@@ -5,19 +5,21 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const dotenv = require("dotenv");
 dotenv.config();
-async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors({
-        methods: 'GET,POST,PUT,DELETE',
-        allowedHeaders: 'Content-Type, Authorization',
-    });
-    await app.listen(process.env.PORT ?? 3000);
+let cachedApp = null;
+async function createNestApp() {
+    if (!cachedApp) {
+        const app = await core_1.NestFactory.create(app_module_1.AppModule);
+        app.enableCors({
+            methods: 'GET,POST,PUT,DELETE',
+            allowedHeaders: 'Content-Type, Authorization',
+        });
+        await app.init();
+        cachedApp = app;
+    }
+    return cachedApp;
 }
-bootstrap();
 async function handler(req, res) {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
-    await app.init();
+    const app = await createNestApp();
     app.getHttpAdapter().getInstance()(req, res);
 }
 //# sourceMappingURL=main.js.map

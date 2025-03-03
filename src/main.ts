@@ -1,35 +1,29 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
 import { VercelRequest, VercelResponse } from '@vercel/node';
- 
+import * as dotenv from 'dotenv';
+
 dotenv.config();
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  
-  app.enableCors({
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type, Authorization',
-  });
+let cachedApp: any = null;
 
-  await app.listen(process.env.PORT ?? 3000);
+async function createNestApp() {
+  // Só cria a aplicação se ainda não tiver sido criada
+  if (!cachedApp) {
+    const app = await NestFactory.create(AppModule);
+    app.enableCors({
+      methods: 'GET,POST,PUT,DELETE',
+      allowedHeaders: 'Content-Type, Authorization',
+    });
+    await app.init();
+    cachedApp = app; // Armazena a instância criada
+  }
+  return cachedApp;
 }
 
-bootstrap();
-
-
-
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const app = await NestFactory.create(AppModule);
+  const app = await createNestApp();
 
-  // Habilita CORS
-  app.enableCors();
-
-  // Inicializa a aplicação NestJS
-  await app.init();
-
-  // Processa a requisição com a instância Express (Vercel)
+  // Processa a requisição com a instância do NestJS já criada
   app.getHttpAdapter().getInstance()(req, res);
 }
