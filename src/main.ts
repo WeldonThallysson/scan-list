@@ -1,19 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import * as dotenv from 'dotenv';
 
-let cachedApp: any = null;
-async function createNestApp() {
-    const app = await NestFactory.create(AppModule);
-    
-    app.enableCors();
-    await app.init();
- 
-  return cachedApp;
+dotenv.config();
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  
+  app.enableCors({
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+  });
+
+  await app.listen(process.env.PORT ?? 3000);
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const app = await createNestApp();
-
-  app.getHttpAdapter().getInstance()(req, res);
-}
+bootstrap();
