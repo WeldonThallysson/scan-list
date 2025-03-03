@@ -11,10 +11,5 @@
       "src": "/(.*)",
       "dest": "/dist/vercel.js"
     }
-  ],
-  "functions": {
-    "api/**.ts": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
