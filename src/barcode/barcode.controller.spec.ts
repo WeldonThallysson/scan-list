@@ -8,7 +8,19 @@ describe('BarcodeController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [BarcodeController],
-      providers: [BarcodeService],
+      providers: [
+          {
+                  provide: BarcodeService,
+                  useValue: {
+                    findAll: jest.fn(), 
+                    findDetails: jest.fn(),
+                    create: jest.fn(),
+                    update: jest.fn(),
+                    remove: jest.fn(),
+                  },
+                },
+      ],
+  
     }).compile();
 
     controller = module.get<BarcodeController>(BarcodeController);
